@@ -18,6 +18,14 @@ defmodule Hw08Web.Router do
 
     get "/", PageController, :index
   end
+  
+  scope "/api", Hw08Web do
+    pipe_through :api
+    resources "/users", UserController, except: [:new, :edit]
+    resources "/tasks", TaskController, except: [:new, :edit]
+    resources "/task_times", TaskTimeController, except: [:new, :edit]
+    post "/auth", AuthController, :authenticate
+  end
 
   # Other scopes may use custom stacks.
   # scope "/api", Hw08Web do

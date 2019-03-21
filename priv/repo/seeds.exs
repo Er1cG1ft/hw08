@@ -9,3 +9,10 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+alias Hw08.Repo
+alias Hw08.Users.User
+
+pwhash = Argon2.hash_pwd_salt("test")
+
+Repo.insert!(%User{email: "admin@gmail.com", first_name: "Admin", last_name: "User", admin: true, password_hash: pwhash})
+Repo.insert!(%User{email: "user@gmail.com", first_name: "Demo", last_name: "User", admin: false, password_hash: pwhash})
