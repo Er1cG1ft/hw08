@@ -10,12 +10,38 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :hw08, Hw08Web.Endpoint,
-  http: [:inet6, port: System.get_env("PORT") || 4000],
-  url: [host: "example.com", port: 80],
+    server: true,
+  root: ".",
+  version: Application.spec(:phoenix_distillery, :vsn),
+  http: [:inet6, port: {:system, "PORT"}],
+  url: [host: "hw07.ericgift.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
-# Do not print debug messages in production
+
 config :logger, level: :info
+
+
+get_secret = fn name ->
+  base = Path.expand("~/.config/hw07")
+  File.mkdir_p!(base)
+  path = Path.join(base, name)
+  unless File.exists?(path) do
+    secret = Base.encode16(:crypto.strong_rand_bytes(32))
+    File.write!(path, secret)
+  end
+  File.read!(path)
+end
+
+config :hw07, Hw06Web.Endpoint,
+  secret_key_base: get_secret.("key_base");
+
+# Configure your database
+config :hw07, Hw06.Repo,
+  username: "",
+  password: "",
+  database: "",
+  hostname: "",
+  pool_size: 15
 
 # ## SSL Support
 #
@@ -68,4 +94,3 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs which should be versioned
 # separately.
-import_config "prod.secret.exs"
