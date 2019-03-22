@@ -16,7 +16,6 @@ import EditUser from './edit_user';
 import AddUser from './add_user';
 
 export default function root_init(node, store) {
-  let tasks = window.tasks;
   ReactDOM.render(
     <Provider store={store}>
       <Root />

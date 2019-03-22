@@ -3,9 +3,10 @@ import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import api from './api';
+import UserName from './user_name';
 
 function Header(props) {
-  let {root, session} = props;
+  let {root, session, dispatch} = props;
   let session_info;
   if (session == null) {
     session_info = <div className="form-inline my-2">
@@ -16,7 +17,7 @@ function Header(props) {
   } else {
     session_info = <div className="my-2">
     <span className="navbar-text">
-      Logged in as {session.user_id}
+      Logged in as <UserName user_id={session.user_id} /> &nbsp; <Link to={"/"} onClick={() => api.end_session()} >Log Out</Link>
     </span>
     </div>
   }

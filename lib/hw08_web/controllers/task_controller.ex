@@ -4,6 +4,8 @@ defmodule Hw08Web.TaskController do
   alias Hw08.Tasks
   alias Hw08.Tasks.Task
   alias Hw08.Users
+  
+  #plug Hw08Web.Plugs.RequireAuth
 
   action_fallback Hw08Web.FallbackController
 

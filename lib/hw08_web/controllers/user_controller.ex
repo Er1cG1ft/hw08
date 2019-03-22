@@ -3,6 +3,8 @@ defmodule Hw08Web.UserController do
 
   alias Hw08.Users
   alias Hw08.Users.User
+  
+  #plug Hw08Web.Plugs.RequireAuth
 
   action_fallback Hw08Web.FallbackController
 

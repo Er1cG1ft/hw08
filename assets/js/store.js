@@ -1,5 +1,6 @@
 import { createStore, combineReducers } from 'redux';
 import deepFreeze from 'deep-freeze';
+import $ from 'jquery';
 
 function tasks(state = [], action) {
   switch (action.type) {
@@ -40,6 +41,8 @@ function user(state = null, action) {
 function session(state = null, action) {
   switch (action.type) {
   case 'NEW_SESSION':
+    return action.data;
+  case 'END SESSION':
     return action.data;
   default:
     return state;

@@ -74,7 +74,7 @@ class TheServer {
       contentType: 'application/json; charset=UTF-8',
       data: '',
       success: _resp => {
-        window.location = '/';
+        this.fetch_users();
       }
     });
   }
@@ -86,7 +86,7 @@ class TheServer {
       "/api/users/" + id,
       {user: {email, password, first_name, last_name}},
       (resp) => {
-        window.location = '/users';
+        this.fetch_users();
       },
     );
   }
@@ -98,7 +98,7 @@ class TheServer {
       "/api/tasks/" + id,
       {task: {title, description, user_id, time, completed}},
       (resp) => {
-        window.location = '/';
+        this.fetch_tasks();
       },
     );
   }
@@ -138,6 +138,13 @@ class TheServer {
         });
       }
     );
+  }
+  
+  end_session() {
+    store.dispatch({
+      type: 'END_SESSION',
+      data: null
+    });
   }
   
   add_task(title, description, user_id, time) {
