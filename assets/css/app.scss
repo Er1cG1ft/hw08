@@ -2,6 +2,11 @@
 
 @import "~bootstrap/scss/bootstrap";
 
-.card {
-    display:inline-block;
+.right-btn {
+    float: right;
+}
+
+.btn {
+    margin-right:5px;
+    margin-left:5px;
 }

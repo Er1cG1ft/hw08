@@ -3,10 +3,19 @@ import deepFreeze from 'deep-freeze';
 
 function tasks(state = [], action) {
   switch (action.type) {
-  case 'TASK_LIST':
-    return action.data;
-  default:
-    return state;
+    case 'TASK_LIST':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+function task(state = null, action) {
+  switch (action.type) {
+    case 'TASK_SHOW':
+      return action.data;
+    default:
+      return state;
   }
 }
 
@@ -16,6 +25,15 @@ function users(state = [], action) {
     return action.data;
   default:
     return state;
+  }
+}
+
+function user(state = null, action) {
+  switch (action.type) {
+    case 'USER_SHOW':
+      return action.data;
+    default:
+      return state;
   }
 }
 
@@ -36,8 +54,7 @@ function login_form(state = login_form0, action) {
 function root_reducer(state0, action) {
   console.log("reducer", state0, action);
 
-  let reducer = combineReducers({tasks, users, session,
-                                 login_form});
+  let reducer = combineReducers({tasks, task, users, user, session, login_form});
   let state1 = reducer(state0, action);
 
   console.log("reducer1", state1);

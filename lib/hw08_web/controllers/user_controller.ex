@@ -12,6 +12,9 @@ defmodule Hw08Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    pwhash = Argon2.hash_pwd_salt(Map.get(user_params, "password"))
+    user_params = Map.put(user_params, "password_hash", pwhash)
+  
     with {:ok, %User{} = user} <- Users.create_user(user_params) do
       conn
       |> put_status(:created)
@@ -27,6 +30,10 @@ defmodule Hw08Web.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Users.get_user!(id)
+    if Map.get(user_params, "password") != "" do
+      pwhash = Argon2.hash_pwd_salt(Map.get(user_params, "password"))
+      user_params = Map.put(user_params, "password_hash", pwhash)
+    end
 
     with {:ok, %User{} = user} <- Users.update_user(user, user_params) do
       render(conn, "show.json", user: user)

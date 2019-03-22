@@ -5,7 +5,3 @@
     </div>
   </div>
 </div>
-
-<script>
- window.tasks = <%= raw Jason.encode!(@tasks) %>;
-</script>

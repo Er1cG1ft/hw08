@@ -14,6 +14,8 @@ defmodule Hw08Web.UserView do
     %{id: user.id,
       email: user.email,
       password_hash: user.password_hash,
-      admin: user.admin}
+      first_name: user.first_name,
+      last_name: user.last_name
+    }
   end
 end

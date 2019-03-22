@@ -14,6 +14,9 @@ defmodule Hw08Web.TaskView do
     %{id: task.id,
       title: task.title,
       description: task.description,
-      completed: task.completed}
+      time: task.time,
+      completed: task.completed,
+      user_id: task.user_id
+      }
   end
 end

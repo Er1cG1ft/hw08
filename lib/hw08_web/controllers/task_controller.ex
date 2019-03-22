@@ -3,6 +3,7 @@ defmodule Hw08Web.TaskController do
 
   alias Hw08.Tasks
   alias Hw08.Tasks.Task
+  alias Hw08.Users
 
   action_fallback Hw08Web.FallbackController
 

@@ -2,6 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import api from './api';
+import { Link } from 'react-router-dom';
+import AssignList from './assign_list';
+import UserName from './user_name';
 
 function TaskList(props) {
   let {tasks, dispatch} = props;
@@ -15,7 +18,21 @@ function TaskList(props) {
       <AddTask />
     </div>
     <div className="col-lg-9">
-      {tasklist}
+      <table className="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Time</th>
+            <th>Assignee</th>
+            <th>Completed?</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {tasklist}
+        </tbody>
+      </table>
     </div>
   </div>
   </div>;
@@ -23,28 +40,38 @@ function TaskList(props) {
 
 function Task(props) {
   let {task} = props;
-  return <div className="card col-4">
-    <div className="card-body">
-      <h2 className="card-title">{task.title}</h2>
-      <p className="card-text">
-        {task.description} <br/>
-      </p>
-    </div>
-  </div>;
+  return  <tr>
+      <td>{task.title}</td>
+      <td>{task.description}</td>
+      <td>{task.time} mins</td>
+      <td><Link to={'/users/' + task.user_id}><UserName user_id={task.user_id}/></Link></td>
+      <td>{task.completed ? 'yes' : 'no'}</td>
+      <td>
+        <Link to={'/tasks/' + task.id} className="btn btn-primary">Show</Link>
+        <Link to={'/tasks/edit/' + task.id} className="btn btn-warning">Edit</Link>
+        <button className="btn btn-danger"
+          onClick={() => api.delete_task(task.id)}>Delete</button>
+      </td>
+    </tr>
 }
 
 function AddTask() {
   return (<form>
-    <input type="text" id="task_title" placeholder="Title" className="form-control" />
-      <input type="text" id="task_description" placeholder="Description" className="form-control" />
-      <button className="btn btn-secondary" onClick={() => create_task()}>Create</button>
+    <p>Add a Task</p>
+    <input type="text" id="task_title" placeholder="Title" className="form-control" /> <br />
+      <input type="text" id="task_description" placeholder="Description" className="form-control" /> <br />
+      <select className="form-control" id="task-assignee">
+        <AssignList />
+      </select> <br />
+      <button className="btn btn-success" onClick={() => create_task()}>Create</button>
     </form>);
 }
 
 function create_task() {
   let title = document.getElementById("task_title").value;
   let description = document.getElementById("task_description").value;
-  api.add_task(title, description, 1);
+  let assignee = document.getElementById("task-assignee").value;
+  api.add_task(title, description, assignee, 0);
 }
 
 function state2props(state) {
