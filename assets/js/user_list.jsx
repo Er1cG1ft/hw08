@@ -61,4 +61,8 @@ function create_user() {
   let first_name = document.getElementById("user_firstname").value;
   let last_name = document.getElementById("user_lastname").value;
   api.add_user(email, password, first_name, last_name);
+  document.getElementById("user_email").value = "";
+  document.getElementById("user_password").value = "";
+  document.getElementById("user_firstname").value = "";
+  document.getElementById("user_lastname").value = "";
 }

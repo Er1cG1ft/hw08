@@ -72,6 +72,9 @@ function create_task() {
   let description = document.getElementById("task_description").value;
   let assignee = document.getElementById("task-assignee").value;
   api.add_task(title, description, assignee, 0);
+  document.getElementById("task_title").value = "";
+  document.getElementById("task_description").value = "";
+  document.getElementById("task-assignee").value = "";
 }
 
 function state2props(state) {
