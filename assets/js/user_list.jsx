@@ -55,6 +55,7 @@ function AddUser() {
 }
 
 function create_user() {
+  event.preventDefault();
   let email = document.getElementById("user_email").value;
   let password = document.getElementById("user_password").value;
   let first_name = document.getElementById("user_firstname").value;

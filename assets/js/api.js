@@ -157,6 +157,7 @@ class TheServer {
         this.fetch_tasks();
       },
     );
+    window.location = "/tasks";
   }
   
   add_user(email, password, first_name, last_name) {
@@ -169,6 +170,7 @@ class TheServer {
         this.fetch_users();
       },
     );
+    window.location = "/users";
   }
 }
 
